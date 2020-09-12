@@ -1,0 +1,42 @@
+application:
+  security:
+    authentication:
+      jwt:
+        secret: c87693d8b5c9a8fa965803fd599da3c13abf1015
+        token-validity-in-seconds: 86400
+
+server:
+  port: 8080
+  logging:
+    config: classpath:logback-file.xml
+    level:
+      root: DEBUG
+  jetty:
+    accesslog:
+      filename: /var/log/jetty-access.log
+      enabled: true
+  customized-jetty:
+    ssl:
+      enabled: false
+    port: ${server.port}
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:test
+    driverClassName: org.h2.Driver
+    username: smartbee_crm_client
+    password: admin
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+logging:
+  level:
+    org.springframework: ERROR
+    com.smartbee.crm: DEBUG
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %t %-5level %logger{36} - %msg%n"
